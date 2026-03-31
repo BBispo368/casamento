@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento - Breno & Livia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Biblioteca para gerar o QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">B&L</div>
+        <ul class="nav-links">
+            <li><a href="#home">Início</a></li>
+            <li><a href="#local">Local</a></li>
+            <li><a href="#presentes">Presentes</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero / Carousel Section -->
+    <section id="home" class="hero-section">
+        <div class="carousel-container">
+            <!-- Imagem principal -->
+            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1920&auto=format&fit=crop');"></div>
+            
+            <div class="hero-overlay">
+                <div class="hero-content">
+                    <h1>Breno & Livia</h1>
+                    <p>Vamos nos Casar!</p>
+                    <div class="ornament hero-ornament">✨ 🌿 ✨</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="countdown-section">
+        <div class="countdown-container">
+            <h2>Faltam apenas...</h2>
+            <div class="countdown-timer">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <small>Dias</small>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <small>Horas</small>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <small>Min</small>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <small>Seg</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Local Section -->
+    <section id="local" class="content-section">
+        <div class="section-header">
+            <div class="ornament">✨ 🌿 ✨</div>
+            <h2>Cerimônia e Recepção</h2>
+            <p>Esperamos você para celebrar conosco neste lugar especial!</p>
+        </div>
+        
+        <div class="local-gallery">
+            <img src="./images/local/capela-fazenda-aristides.png" alt="Capela da Fazenda Aristides" class="local-photo">
+            <img src="./images/local/lago-fazenda-aristides.png" alt="Lago da Fazenda Aristides" class="local-photo">
+        </div>
+
+        <div class="local-content">
+            <div class="local-info">
+                <h3>Fazenda Aristides</h3>
+                <p><strong>Endereço:</strong><br>Fazenda Aristides - Engenho do Ribeiro, Minas Gerais</p>
+                <a href="https://maps.google.com/?q=CM9V%2BGX%20Bom%20Despacho,%20Minas%20Gerais" target="_blank" class="btn-map">Abrir Rota no GPS</a>
+            </div>
+            <div class="local-map">
+                <!-- iFrame do Google Maps com o Plus Code -->
+                <iframe src="https://maps.google.com/maps?q=CM9V%2BGX%20Bom%20Despacho,%20Minas%20Gerais&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Presentes Section -->
+    <section id="presentes" class="content-section">
+        <div class="section-header">
+            <div class="ornament">✨ 🌿 ✨</div>
+            <h2>Lista de Presentes</h2>
+            <p>Ajude-nos a montar nosso lar ou nossa lua de mel!</p>
+        </div>
+
+        <div class="main-container">
+            <div class="gifts-section">
+                <div id="gift-list" class="gift-list">
+                    <!-- Os presentes serão inseridos aqui pelo JavaScript -->
+                </div>
+            </div>
+
+            <div class="cart-section">
+                <h2>🎁 Carrinho</h2>
+                <div id="cart-items">
+                    <p>Seu carrinho está vazio.</p>
+                </div>
+                <div id="cart-total" class="cart-total"></div>
+                
+                <div id="checkout-form" style="display: none; margin-top: 25px;">
+                    <input type="text" id="buyer-name" placeholder="Seu Nome (Para a mensagem)" class="form-input" maxlength="25">
+                    <textarea id="buyer-msg" placeholder="Deixe um recado curto aos noivos" class="form-input" rows="2" maxlength="40"></textarea>
+                    <button id="checkout-btn" class="checkout-btn" onclick="finalizarCompra()">Finalizar e Gerar PIX</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para exibir o QR Code -->
+    <div id="pix-modal" class="pix-modal">
+        <div class="pix-content">
+            <span class="close-modal" onclick="fecharModal()">&times;</span>
+            <h3>Pagamento via PIX</h3>
+            <p>Escaneie o QR Code abaixo com o app do seu banco.</p>
+            <div id="qrcode"></div>
+            <p><strong>Valor Total: R$ <span id="pix-valor"></span></strong></p>
+            <small>Após o pagamento, pode fechar esta janela.</small>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
