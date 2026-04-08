@@ -38,7 +38,7 @@ const cidadeBeneficiario = "Bom Despacho";
 const presentes =[
   {
     "id": 1,
-    "nome": "5 meses de streaming de filmes para o casal curtir juntinhxs",
+    "nome": "5 meses de streaming de filmes para o casal curtir juntinhos",
     "preco": 205.02,
     "img": "./images/streaming.jpg"
   },
