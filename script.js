@@ -742,6 +742,72 @@ function gerarQrCodePix(valor, descricao = "") {
     qr.addData(brCode);
     qr.make();
     document.getElementById('qrcode').innerHTML = qr.createImgTag(6, 20);
+
+    // Preenche o campo de Pix Copia e Cola
+    const pixCodeInput = document.getElementById('pix-code');
+    if(pixCodeInput) {
+        pixCodeInput.value = brCode;
+    }
+}
+
+// Função para copiar o código Pix
+function copiarPix() {
+    const pixCodeInput = document.getElementById('pix-code');
+    if (!pixCodeInput) return;
+    
+    // Seleciona o texto no input
+    pixCodeInput.select();
+    pixCodeInput.setSelectionRange(0, 99999); // Para dispositivos móveis
+    
+    // Copia para a área de transferência
+    navigator.clipboard.writeText(pixCodeInput.value).then(() => {
+        alert("Código Pix copiado com sucesso!");
+    }).catch(err => {
+        console.error('Erro ao copiar o Pix: ', err);
+        // Fallback caso a API do clipboard falhe
+        document.execCommand('copy');
+        alert("Código Pix copiado com sucesso!");
+    });
+}
+
+// --- CONFIRMAÇÃO DE PRESENÇA (RSVP) ---
+function confirmarPresenca(event) {
+    event.preventDefault(); // Evita recarregar a página
+    
+    const nome = document.getElementById('rsvp-nome').value.trim();
+    const acompanhantes = document.getElementById('rsvp-acompanhantes').value;
+    const status = document.getElementById('rsvp-status').value;
+    const msg = document.getElementById('rsvp-msg').value.trim();
+    const btn = event.target.querySelector('button[type="submit"]');
+    
+    // Altera o texto do botão para mostrar que está enviando
+    const textoOriginal = btn.innerText;
+    btn.innerText = "Enviando...";
+    btn.disabled = true;
+
+    // ======== ATENÇÃO ========
+    // 1. Cole aqui a URL do Web App gerada no Google Apps Script:
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwZmbwlCfZjRoCed2j7YTYFj6krcd1qgv0d54UkyXS65XdoX0TGR3SfPx9HXl43HTafZA/exec';
+
+    const formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('acompanhantes', acompanhantes);
+    formData.append('status', status);
+    formData.append('mensagem', msg);
+
+    fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+            alert('Presença confirmada com sucesso! Muito obrigado.');
+            document.getElementById('rsvp-form').reset();
+        })
+        .catch(error => {
+            console.error('Erro ao enviar:', error.message);
+            alert('Houve um erro ao confirmar. Por favor, tente novamente mais tarde.');
+        })
+        .finally(() => {
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+        });
 }
 
 // --- INICIALIZAÇÃO ---

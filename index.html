@@ -21,6 +21,7 @@
         <ul class="nav-links">
             <li><a href="#home">Início</a></li>
             <li><a href="#local">Local</a></li>
+            <li><a href="#rsvp">Presença</a></li>
             <li><a href="#presentes">Presentes</a></li>
         </ul>
     </nav>
@@ -91,6 +92,28 @@
             </div>
         </div>
     </section>
+    <!-- RSVP / Confirmação de Presença -->
+    <section id="rsvp" class="content-section" style="background-color: var(--card-bg);">
+        <div class="section-header">
+            <div class="ornament">✨ 🌿 ✨</div>
+            <h2>Confirme sua Presença</h2>
+            <p>Por favor, confirme sua presença para nos ajudar na organização!</p>
+        </div>
+        
+        <div class="rsvp-container">
+            <form id="rsvp-form" class="rsvp-form" onsubmit="confirmarPresenca(event)">
+                <input type="text" id="rsvp-nome" placeholder="Seu Nome Completo" class="form-input" required>
+                <input type="number" id="rsvp-acompanhantes" placeholder="Número total de pessoas (incluindo você)" class="form-input" min="1" max="10" required>
+                <select id="rsvp-status" class="form-input" required>
+                    <option value="" disabled selected>Você irá ao evento?</option>
+                    <option value="Sim, confirmadíssimo!">Sim, confirmadíssimo! 🎉</option>
+                    <option value="Infelizmente não poderei ir.">Infelizmente não poderei ir. 😢</option>
+                </select>
+                <textarea id="rsvp-msg" placeholder="Deixe uma mensagem para os noivos (Opcional)" class="form-input" rows="3"></textarea>
+                <button type="submit" class="btn-map" style="width: 100%; border: none; cursor: pointer;">Enviar Confirmação</button>
+            </form>
+        </div>
+    </section>
 
     <!-- Presentes Section -->
     <section id="presentes" class="content-section">
@@ -130,6 +153,15 @@
             <h3>Pagamento via PIX</h3>
             <p>Escaneie o QR Code abaixo com o app do seu banco.</p>
             <div id="qrcode"></div>
+            
+            <div class="pix-copia-cola">
+                <p>Ou utilize o Pix Copia e Cola:</p>
+                <div class="copy-container">
+                    <input type="text" id="pix-code" readonly>
+                    <button onclick="copiarPix()" class="copy-btn">Copiar</button>
+                </div>
+            </div>
+
             <p><strong>Valor Total: R$ <span id="pix-valor"></span></strong></p>
             <small>Após o pagamento, pode fechar esta janela.</small>
         </div>
