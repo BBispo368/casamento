@@ -771,13 +771,69 @@ function copiarPix() {
 }
 
 // --- CONFIRMAÇÃO DE PRESENÇA (RSVP) ---
+function gerarCamposAcompanhantes() {
+    const container = document.getElementById('guest-names-container');
+    if (!container) return;
+    
+    const quantidade = parseInt(document.getElementById('rsvp-acompanhantes').value) || 0;
+    const acompanhantes = quantidade - 1;
+    
+    // Armazena valores antigos para não apagar ao mudar a quantidade
+    const inputsAntigos = container.querySelectorAll('input');
+    const valoresAntigos = Array.from(inputsAntigos).map(input => input.value);
+    
+    container.innerHTML = ''; // Limpa o container
+    
+    if (acompanhantes > 0) {
+        // Cria um pequeno título explicativo
+        const label = document.createElement('p');
+        label.className = 'guest-names-label';
+        label.innerText = 'Nome dos acompanhantes:';
+        container.appendChild(label);
+        
+        for (let i = 0; i < acompanhantes && i < 15; i++) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-input guest-name-input';
+            input.placeholder = `Nome do ${i + 1}º acompanhante`;
+            input.required = true;
+            input.id = `guest-name-${i}`;
+            
+            // Restaura o valor antigo se existir
+            if (valoresAntigos[i]) {
+                input.value = valoresAntigos[i];
+            }
+            
+            container.appendChild(input);
+        }
+        
+        // Aplica a classe para mostrar (usando setTimeout pequeno para transição css funcionar)
+        setTimeout(() => container.classList.add('show'), 10);
+    } else {
+        container.classList.remove('show');
+    }
+}
+
 function confirmarPresenca(event) {
     event.preventDefault(); // Evita recarregar a página
     
     const nome = document.getElementById('rsvp-nome').value.trim();
-    const acompanhantes = document.getElementById('rsvp-acompanhantes').value;
+    let acompanhantes = document.getElementById('rsvp-acompanhantes').value;
     const status = document.getElementById('rsvp-status').value;
     const msg = document.getElementById('rsvp-msg').value.trim();
+
+    // Coletar nomes dos acompanhantes, se houver
+    const inputsAcompanhantes = document.querySelectorAll('.guest-name-input');
+    let nomesAcompanhantes = [];
+    inputsAcompanhantes.forEach(input => {
+        if (input.value.trim()) {
+            nomesAcompanhantes.push(input.value.trim());
+        }
+    });
+
+    if (nomesAcompanhantes.length > 0) {
+        acompanhantes = `${acompanhantes} pessoas:\n- ${nome} (Titular)\n` + nomesAcompanhantes.map(n => `- ${n}`).join('\n');
+    }
     const btn = event.target.querySelector('button[type="submit"]');
     
     // Altera o texto do botão para mostrar que está enviando
@@ -799,6 +855,11 @@ function confirmarPresenca(event) {
         .then(response => {
             alert('Presença confirmada com sucesso! Muito obrigado.');
             document.getElementById('rsvp-form').reset();
+            const container = document.getElementById('guest-names-container');
+            if (container) {
+                container.innerHTML = '';
+                container.classList.remove('show');
+            }
         })
         .catch(error => {
             console.error('Erro ao enviar:', error.message);
@@ -816,4 +877,9 @@ window.onload = () => {
     atualizarContagem(); // Inicia logo
     renderizarPresentes();
     renderizarCarrinho();
+    
+    const inputAcompanhantes = document.getElementById('rsvp-acompanhantes');
+    if (inputAcompanhantes) {
+        inputAcompanhantes.addEventListener('input', gerarCamposAcompanhantes);
+    }
 };

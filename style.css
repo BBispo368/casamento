@@ -588,6 +588,37 @@ textarea.form-input {
     background-size: 12px auto;
 }
 
+/* Guest Names Dynamically Added */
+.guest-names-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease, margin 0.5s ease;
+    opacity: 0;
+    margin-bottom: 0;
+}
+.guest-names-container.show {
+    max-height: 800px;
+    opacity: 1;
+    margin-bottom: 15px;
+}
+.guest-names-label {
+    margin: 5px 0 10px 5px;
+    font-size: 0.95em;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-align: left;
+}
+.guest-name-input {
+    margin-bottom: 10px;
+    background-color: white;
+    border-color: var(--border-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+.guest-name-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(146,180,242,0.3);
+}
+
 /* Responsividade Geral */
 @media (max-width: 768px) {
     .nav-links li { margin: 0 5px; }
