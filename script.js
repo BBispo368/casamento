@@ -843,7 +843,7 @@ function confirmarPresenca(event) {
 
     // ======== ATENÇÃO ========
     // 1. Cole aqui a URL do Web App gerada no Google Apps Script:
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwZmbwlCfZjRoCed2j7YTYFj6krcd1qgv0d54UkyXS65XdoX0TGR3SfPx9HXl43HTafZA/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwuYF-hziwNg9DA12VxkhEvj8oWxYrnnsPbRPcCVrKhCcMfzXOsA5sV3xRaikWQbQjOCg/exec';
 
     const formData = new FormData();
     formData.append('nome', nome);
@@ -851,8 +851,12 @@ function confirmarPresenca(event) {
     formData.append('status', status);
     formData.append('mensagem', msg);
 
-    fetch(scriptURL, { method: 'POST', body: formData })
-        .then(response => {
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+    })
+        .then(() => {
             alert('Presença confirmada com sucesso! Muito obrigado.');
             document.getElementById('rsvp-form').reset();
             const container = document.getElementById('guest-names-container');
@@ -862,7 +866,7 @@ function confirmarPresenca(event) {
             }
         })
         .catch(error => {
-            console.error('Erro ao enviar:', error.message);
+            console.error('Erro ao enviar:', error && error.message ? error.message : error);
             alert('Houve um erro ao confirmar. Por favor, tente novamente mais tarde.');
         })
         .finally(() => {
