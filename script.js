@@ -1,3 +1,16 @@
+// --- LÓGICA DO CARROSSEL ---
+let slideAtual = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const totalSlides = slides.length;
+
+function proximoSlide() {
+    slides[slideAtual].classList.remove('active');
+    slideAtual = (slideAtual + 1) % totalSlides;
+    slides[slideAtual].classList.add('active');
+}
+
+setInterval(proximoSlide, 5000); // Muda a cada 5 segundos
+
 // --- LÓGICA DA CONTAGEM REGRESSIVA ---
 const dataCasamento = new Date("2027-03-06T16:00:00-03:00").getTime();
 
