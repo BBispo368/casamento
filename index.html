@@ -2,57 +2,74 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Casamento - Breno & Livia</title>
+    <meta name="description" content="Breno & Livia vão se casar! 06 de março de 2027, às 16h, na Fazenda Aristides (Bom Despacho - MG). Veja o local e a lista de presentes.">
+    <meta name="theme-color" content="#92B4F2">
+
+    <!-- Pré-visualização ao compartilhar o link (WhatsApp, Instagram, etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Casamento - Breno & Livia 💍">
+    <meta property="og:description" content="06 de março de 2027, às 16h • Fazenda Aristides - Bom Despacho/MG. Veja o local e a lista de presentes!">
+    <meta property="og:url" content="https://bbispo368.github.io/casamento/">
+    <meta property="og:image" content="https://bbispo368.github.io/casamento/images/casal/capela.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
+    <!-- Primeira foto do carrossel carregada com prioridade -->
+    <link rel="preload" as="image" href="images/casal/capela.jpeg">
+
     <!-- Biblioteca para gerar o QR Code -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">B&L</div>
+    <nav class="navbar" id="navbar">
+        <a href="#home" class="logo" aria-label="Início">B&L</a>
         <ul class="nav-links">
             <li><a href="#home">Início</a></li>
             <li><a href="#local">Local</a></li>
-            <li><a href="#rsvp">Presença</a></li>
             <li><a href="#presentes">Presentes</a></li>
         </ul>
     </nav>
 
     <!-- Hero / Carousel Section -->
     <section id="home" class="hero-section">
-        <div class="carousel-container">
-            <!-- Imagens do casal -->
-            <div class="carousel-slide active" style="background-image: url('images/casal/capela.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('images/casal/estrada.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('images/casal/grama.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('images/casal/ponte.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('images/casal/sentados.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('images/casal/sol.jpeg');"></div>
-            <div class="carousel-slide" style="background-image: url('images/casal/sombra.jpeg');"></div>
-            
+        <div class="carousel-container" aria-label="Fotos do casal">
+            <div class="carousel-slide active" data-bg="images/casal/capela.jpeg" role="img" aria-label="Breno e Livia na capela"></div>
+            <div class="carousel-slide" data-bg="images/casal/estrada.jpeg" role="img" aria-label="Breno e Livia na estrada"></div>
+            <div class="carousel-slide" data-bg="images/casal/grama.jpeg" role="img" aria-label="Breno e Livia na grama"></div>
+            <div class="carousel-slide" data-bg="images/casal/ponte.jpeg" role="img" aria-label="Breno e Livia na ponte"></div>
+            <div class="carousel-slide" data-bg="images/casal/sentados.jpeg" role="img" aria-label="Breno e Livia sentados"></div>
+            <div class="carousel-slide" data-bg="images/casal/sol.jpeg" role="img" aria-label="Breno e Livia ao sol"></div>
+            <div class="carousel-slide" data-bg="images/casal/sombra.jpeg" role="img" aria-label="Breno e Livia na sombra"></div>
+
             <div class="hero-overlay">
                 <div class="hero-content">
                     <h1>Breno & Livia</h1>
                     <p>Vamos nos Casar!</p>
-                    <div class="ornament hero-ornament">✨ 🌿 ✨</div>
+                    <div class="hero-date">06 • 03 • 2027</div>
+                    <div class="ornament hero-ornament" aria-hidden="true">✨ 🌿 ✨</div>
                 </div>
             </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
         </div>
     </section>
 
     <!-- Countdown Section -->
     <section id="countdown" class="countdown-section">
         <div class="countdown-container">
-            <h2>Faltam apenas...</h2>
-            <div class="countdown-timer">
+            <h2 id="countdown-title">Faltam apenas...</h2>
+            <div class="countdown-timer" id="countdown-timer">
                 <div class="time-box">
                     <span id="days">00</span>
                     <small>Dias</small>
@@ -70,110 +87,120 @@
                     <small>Seg</small>
                 </div>
             </div>
+            <p class="countdown-date">Sábado, 06 de março de 2027 • 16h</p>
         </div>
     </section>
 
     <!-- Local Section -->
     <section id="local" class="content-section">
-        <div class="section-header">
-            <div class="ornament">✨ 🌿 ✨</div>
+        <div class="section-header reveal">
+            <div class="ornament" aria-hidden="true">✨ 🌿 ✨</div>
             <h2>Cerimônia e Recepção</h2>
             <p>Esperamos você para celebrar conosco neste lugar especial!</p>
         </div>
-        
-        <div class="local-gallery">
-            <img src="./images/local/capela-fazenda-aristides.png" alt="Capela da Fazenda Aristides" class="local-photo">
-            <img src="./images/local/lago-fazenda-aristides.png" alt="Lago da Fazenda Aristides" class="local-photo">
+
+        <div class="local-gallery reveal">
+            <img src="./images/local/capela-fazenda-aristides.png" alt="Capela da Fazenda Aristides" class="local-photo" loading="lazy" decoding="async">
+            <img src="./images/local/lago-fazenda-aristides.png" alt="Lago da Fazenda Aristides" class="local-photo" loading="lazy" decoding="async">
         </div>
 
-        <div class="local-content">
+        <div class="local-content reveal">
             <div class="local-info">
                 <h3>Fazenda Aristides</h3>
-                <p><strong>Endereço:</strong><br>Fazenda Aristides - Engenho do Ribeiro, Minas Gerais</p>
-                <a href="https://maps.google.com/?q=CM9V%2BGX%20Bom%20Despacho,%20Minas%20Gerais" target="_blank" class="btn-map">Abrir Rota no GPS</a>
+                <p><strong>Quando:</strong><br>Sábado, 06 de março de 2027, às 16h</p>
+                <p><strong>Endereço:</strong><br>Fazenda Aristides - Engenho do Ribeiro, Bom Despacho - MG</p>
+                <div class="local-actions">
+                    <a href="https://maps.google.com/?q=CM9V%2BGX%20Bom%20Despacho,%20Minas%20Gerais" target="_blank" rel="noopener" class="btn-map">📍 Abrir rota no GPS</a>
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento%20Breno%20%26%20Livia&dates=20270306T190000Z/20270307T020000Z&location=Fazenda%20Aristides%20-%20Engenho%20do%20Ribeiro,%20Bom%20Despacho%20-%20MG&details=Cerim%C3%B4nia%20e%20recep%C3%A7%C3%A3o%20do%20casamento%20de%20Breno%20e%20Livia." target="_blank" rel="noopener" class="btn-map btn-outline">📅 Salvar na agenda</a>
+                </div>
             </div>
             <div class="local-map">
-                <!-- iFrame do Google Maps com o Plus Code -->
-                <iframe src="https://maps.google.com/maps?q=CM9V%2BGX%20Bom%20Despacho,%20Minas%20Gerais&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy"></iframe>
+                <iframe title="Mapa da Fazenda Aristides" src="https://maps.google.com/maps?q=CM9V%2BGX%20Bom%20Despacho,%20Minas%20Gerais&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-        </div>
-    </section>
-    <!-- RSVP / Confirmação de Presença -->
-    <section id="rsvp" class="content-section" style="background-color: var(--card-bg);">
-        <div class="section-header">
-            <div class="ornament">✨ 🌿 ✨</div>
-            <h2>Confirme sua Presença</h2>
-            <p>Por favor, confirme sua presença para nos ajudar na organização!</p>
-        </div>
-        
-        <div class="rsvp-container">
-            <form id="rsvp-form" class="rsvp-form" onsubmit="confirmarPresenca(event)">
-                <input type="text" id="rsvp-nome" placeholder="Seu Nome Completo" class="form-input" required>
-                <input type="number" id="rsvp-acompanhantes" placeholder="Número total de pessoas (incluindo você)" class="form-input" min="1" max="10" required>
-                <div id="guest-names-container" class="guest-names-container"></div>
-                <select id="rsvp-status" class="form-input" required>
-                    <option value="" disabled selected>Você irá ao evento?</option>
-                    <option value="Sim, confirmadíssimo!">Sim, confirmadíssimo! 🎉</option>
-                    <option value="Infelizmente não poderei ir.">Infelizmente não poderei ir. 😢</option>
-                </select>
-                <textarea id="rsvp-msg" placeholder="Deixe uma mensagem para os noivos (Opcional)" class="form-input" rows="3"></textarea>
-                <button type="submit" class="btn-map" style="width: 100%; border: none; cursor: pointer;">Enviar Confirmação</button>
-            </form>
         </div>
     </section>
 
     <!-- Presentes Section -->
     <section id="presentes" class="content-section">
-        <div class="section-header">
-            <div class="ornament">✨ 🌿 ✨</div>
+        <div class="section-header reveal">
+            <div class="ornament" aria-hidden="true">✨ 🌿 ✨</div>
             <h2>Lista de Presentes</h2>
             <p>Ajude-nos a montar nosso lar ou nossa lua de mel!</p>
+        </div>
+
+        <div class="gift-toolbar">
+            <label class="visually-hidden" for="gift-search">Buscar presente</label>
+            <input type="search" id="gift-search" class="form-input toolbar-input" placeholder="🔎 Buscar presente..." autocomplete="off">
+            <label class="visually-hidden" for="gift-sort">Ordenar presentes</label>
+            <select id="gift-sort" class="form-input toolbar-input toolbar-select">
+                <option value="padrao">A → Z</option>
+                <option value="menor">Menor preço</option>
+                <option value="maior">Maior preço</option>
+            </select>
         </div>
 
         <div class="main-container">
             <div class="gifts-section">
                 <div id="gift-list" class="gift-list">
-                    <!-- Os presentes serão inseridos aqui pelo JavaScript -->
+                    <!-- Os presentes são inseridos aqui pelo JavaScript -->
                 </div>
+                <p id="gift-empty" class="gift-empty" hidden>Nenhum presente encontrado. 🙈</p>
             </div>
 
-            <div class="cart-section">
+            <aside class="cart-section" id="cart">
                 <h2>🎁 Carrinho</h2>
                 <div id="cart-items">
-                    <p>Seu carrinho está vazio.</p>
+                    <p class="cart-empty">Seu carrinho está vazio.</p>
                 </div>
                 <div id="cart-total" class="cart-total"></div>
-                
-                <div id="checkout-form" style="display: none; margin-top: 25px;">
-                    <input type="text" id="buyer-name" placeholder="Seu Nome (Para a mensagem)" class="form-input" maxlength="25">
-                    <textarea id="buyer-msg" placeholder="Deixe um recado curto aos noivos" class="form-input" rows="2" maxlength="40"></textarea>
-                    <button id="checkout-btn" class="checkout-btn" onclick="finalizarCompra()">Finalizar e Gerar PIX</button>
+
+                <div id="checkout-form" class="checkout-form" hidden>
+                    <label class="visually-hidden" for="buyer-name">Seu nome</label>
+                    <input type="text" id="buyer-name" placeholder="Seu nome (para a mensagem)" class="form-input" maxlength="25" autocomplete="name">
+                    <label class="visually-hidden" for="buyer-msg">Recado aos noivos</label>
+                    <textarea id="buyer-msg" placeholder="Deixe um recado curto aos noivos (opcional)" class="form-input" rows="2" maxlength="40"></textarea>
+                    <button type="button" id="checkout-btn" class="checkout-btn">Finalizar e gerar PIX</button>
                 </div>
-            </div>
+            </aside>
         </div>
     </section>
 
+    <footer class="footer">
+        <p>Com amor, Breno & Livia 💙</p>
+    </footer>
+
+    <!-- Barra flutuante do carrinho (celular) -->
+    <button type="button" id="cart-bar" class="cart-bar" aria-label="Ver carrinho">
+        <span class="cart-bar-count" id="cart-bar-count">0</span>
+        <span class="cart-bar-text">Ver carrinho</span>
+        <strong class="cart-bar-total" id="cart-bar-total">R$ 0,00</strong>
+    </button>
+
+    <!-- Aviso rápido (toast) -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
     <!-- Modal para exibir o QR Code -->
-    <div id="pix-modal" class="pix-modal">
+    <div id="pix-modal" class="pix-modal" role="dialog" aria-modal="true" aria-labelledby="pix-title" hidden>
         <div class="pix-content">
-            <span class="close-modal" onclick="fecharModal()">&times;</span>
-            <h3>Pagamento via PIX</h3>
-            <p>Escaneie o QR Code abaixo com o app do seu banco.</p>
+            <button type="button" class="close-modal" id="close-modal" aria-label="Fechar">&times;</button>
+            <h3 id="pix-title">Pagamento via PIX</h3>
+            <p class="pix-instructions">Escaneie o QR Code com o app do seu banco.</p>
             <div id="qrcode"></div>
-            
+
             <div class="pix-copia-cola">
-                <p>Ou utilize o Pix Copia e Cola:</p>
+                <p>Ou use o Pix Copia e Cola:</p>
                 <div class="copy-container">
-                    <input type="text" id="pix-code" readonly>
-                    <button onclick="copiarPix()" class="copy-btn">Copiar</button>
+                    <input type="text" id="pix-code" readonly aria-label="Código Pix Copia e Cola">
+                    <button type="button" id="copy-btn" class="copy-btn">Copiar</button>
                 </div>
             </div>
 
-            <p><strong>Valor Total: R$ <span id="pix-valor"></span></strong></p>
-            <small>Após o pagamento, pode fechar esta janela.</small>
+            <p class="pix-total"><strong>Valor total: R$ <span id="pix-valor"></span></strong></p>
+            <button type="button" id="paid-btn" class="checkout-btn">Já fiz o pagamento ✓</button>
         </div>
     </div>
 
+    <script src="presentes.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
