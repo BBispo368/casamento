@@ -45,20 +45,20 @@
     <!-- Hero / Carousel Section -->
     <section id="home" class="hero-section">
         <div class="carousel-container" aria-label="Fotos do casal">
-            <div class="carousel-slide active" data-bg="images/casal/capela.jpeg" style="--pos-x: 30%; --pos-y: 80%;" role="img" aria-label="Breno e Livia na capela"></div>
+            <div class="carousel-slide active" data-bg="images/casal/capela.jpeg" data-text="top" style="--pos-x: 30%; --pos-y: 80%;" role="img" aria-label="Breno e Livia na capela"></div>
             <div class="carousel-slide" data-bg="images/casal/estrada.jpeg" role="img" aria-label="Breno e Livia na estrada"></div>
-            <div class="carousel-slide" data-bg="images/casal/grama.jpeg" role="img" aria-label="Breno e Livia na grama"></div>
+            <div class="carousel-slide" data-bg="images/casal/grama.jpeg" data-text="top" role="img" aria-label="Breno e Livia na grama"></div>
             <div class="carousel-slide" data-bg="images/casal/ponte.jpeg" role="img" aria-label="Breno e Livia na ponte"></div>
             <div class="carousel-slide" data-bg="images/casal/sentados.jpeg" role="img" aria-label="Breno e Livia sentados"></div>
             <div class="carousel-slide" data-bg="images/casal/sol.jpeg" role="img" aria-label="Breno e Livia ao sol"></div>
             <div class="carousel-slide" data-bg="images/casal/sombra.jpeg" style="--pos-x: 42%;" role="img" aria-label="Breno e Livia na sombra"></div>
 
-            <div class="hero-overlay">
+            <div class="hero-overlay" id="hero-overlay">
                 <div class="hero-content">
                     <h1>Breno & Livia</h1>
                     <p>Vamos nos Casar!</p>
                     <div class="hero-date">06 • 03 • 2027</div>
-                    <div class="ornament hero-ornament" aria-hidden="true">✨ 🌿 ✨</div>
+                    <svg class="ornament hero-ornament" viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><path d="M6 12h48M106 12h48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="62" cy="12" r="2" fill="currentColor"/><circle cx="98" cy="12" r="2" fill="currentColor"/><path d="M80 21V7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M80 16c-6 0-10-4-11-9 6 0 10 4 11 9zM80 12c6 0 10-4 11-9-6 0-10 4-11 9z" fill="currentColor"/></svg>
                 </div>
             </div>
             <div class="carousel-dots" id="carousel-dots"></div>
@@ -94,7 +94,7 @@
     <!-- Local Section -->
     <section id="local" class="content-section">
         <div class="section-header reveal">
-            <div class="ornament" aria-hidden="true">✨ 🌿 ✨</div>
+            <svg class="ornament" viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><path d="M6 12h48M106 12h48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="62" cy="12" r="2" fill="currentColor"/><circle cx="98" cy="12" r="2" fill="currentColor"/><path d="M80 21V7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M80 16c-6 0-10-4-11-9 6 0 10 4 11 9zM80 12c6 0 10-4 11-9-6 0-10 4-11 9z" fill="currentColor"/></svg>
             <h2>Cerimônia e Recepção</h2>
             <p>Esperamos você para celebrar conosco neste lugar especial!</p>
         </div>
@@ -123,7 +123,7 @@
     <!-- Presentes Section -->
     <section id="presentes" class="content-section">
         <div class="section-header reveal">
-            <div class="ornament" aria-hidden="true">✨ 🌿 ✨</div>
+            <svg class="ornament" viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><path d="M6 12h48M106 12h48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="62" cy="12" r="2" fill="currentColor"/><circle cx="98" cy="12" r="2" fill="currentColor"/><path d="M80 21V7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M80 16c-6 0-10-4-11-9 6 0 10 4 11 9zM80 12c6 0 10-4 11-9-6 0-10 4-11 9z" fill="currentColor"/></svg>
             <h2>Lista de Presentes</h2>
             <p>Ajude-nos a montar nosso lar ou nossa lua de mel!</p>
         </div>
@@ -139,12 +139,20 @@
             </select>
         </div>
 
+        <div class="gift-categories" role="tablist" aria-label="Categorias de presentes">
+            <button type="button" class="chip active" data-cat="todos" role="tab" aria-selected="true">Todos</button>
+            <button type="button" class="chip" data-cat="divertidos" role="tab" aria-selected="false">😂 Divertidos</button>
+            <button type="button" class="chip" data-cat="casa" role="tab" aria-selected="false">🏠 Casa</button>
+            <button type="button" class="chip" data-cat="cotas" role="tab" aria-selected="false">✈️ Lua de mel e cotas</button>
+        </div>
+
         <div class="main-container">
             <div class="gifts-section">
                 <div id="gift-list" class="gift-list">
                     <!-- Os presentes são inseridos aqui pelo JavaScript -->
                 </div>
                 <p id="gift-empty" class="gift-empty" hidden>Nenhum presente encontrado. 🙈</p>
+                <button type="button" id="gift-more" class="btn-more" hidden>Ver mais presentes</button>
             </div>
 
             <aside class="cart-section" id="cart">

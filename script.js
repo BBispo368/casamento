@@ -57,6 +57,25 @@ function mostrarAviso(texto) {
         return dot;
     });
 
+    // No celular, o texto vai para o topo ou para a base conforme onde o casal está na foto
+    const overlay = document.getElementById('hero-overlay');
+    const celular = window.matchMedia('(max-width: 768px)');
+    let trocaTexto;
+    function posicionarTexto(slide, animar) {
+        const noTopo = slide.dataset.text === 'top';
+        if (overlay.classList.contains('text-top') === noTopo) return;
+        clearTimeout(trocaTexto);
+        if (!animar || !celular.matches || reduzMovimento) {
+            overlay.classList.toggle('text-top', noTopo);
+            return;
+        }
+        overlay.classList.add('text-swap');
+        trocaTexto = setTimeout(() => {
+            overlay.classList.toggle('text-top', noTopo);
+            overlay.classList.remove('text-swap');
+        }, 450);
+    }
+
     function irPara(i) {
         slides[atual].classList.remove('active');
         dots[atual].classList.remove('active');
@@ -65,6 +84,7 @@ function mostrarAviso(texto) {
         carregar((atual + 1) % slides.length); // já deixa a próxima pronta
         slides[atual].classList.add('active');
         dots[atual].classList.add('active');
+        posicionarTexto(slides[atual], true);
     }
 
     function reiniciar() {
@@ -90,6 +110,7 @@ function mostrarAviso(texto) {
 
     carregar(0);
     carregar(1);
+    posicionarTexto(slides[0], false);
     reiniciar();
 })();
 
@@ -180,7 +201,12 @@ function montarPresentes() {
 
 const normalizar = texto => texto.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
-function aplicarFiltro() {
+const POR_PAGINA = 12;
+let limiteVisivel = POR_PAGINA;
+let categoriaAtual = 'todos';
+
+function aplicarFiltro(resetarLimite = true) {
+    if (resetarLimite) limiteVisivel = POR_PAGINA;
     const busca = normalizar(document.getElementById('gift-search').value.trim());
     const ordem = document.getElementById('gift-sort').value;
     const lista = document.getElementById('gift-list');
@@ -190,17 +216,39 @@ function aplicarFiltro() {
     else if (ordem === 'maior') itens.sort((a, b) => b.preco - a.preco);
     else itens.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }));
 
-    let visiveis = 0;
+    let encontrados = 0;
     const fragmento = document.createDocumentFragment();
     itens.forEach(p => {
         const card = cardsPresentes.get(p.id);
-        const mostra = !busca || normalizar(p.nome).includes(busca);
-        card.hidden = !mostra;
-        if (mostra) visiveis++;
+        const combina = (categoriaAtual === 'todos' || p.categoria === categoriaAtual)
+            && (!busca || normalizar(p.nome).includes(busca));
+        if (combina) encontrados++;
+        card.hidden = !combina || encontrados > limiteVisivel;
         fragmento.appendChild(card);
     });
     lista.appendChild(fragmento);
-    document.getElementById('gift-empty').hidden = visiveis > 0;
+
+    document.getElementById('gift-empty').hidden = encontrados > 0;
+    const botaoMais = document.getElementById('gift-more');
+    const restantes = encontrados - limiteVisivel;
+    botaoMais.hidden = restantes <= 0;
+    botaoMais.textContent = `Ver mais presentes (${restantes})`;
+}
+
+function mostrarMais() {
+    limiteVisivel += POR_PAGINA;
+    aplicarFiltro(false);
+}
+
+function escolherCategoria(botao) {
+    categoriaAtual = botao.dataset.cat;
+    document.querySelectorAll('.gift-categories .chip').forEach(chip => {
+        const ativo = chip === botao;
+        chip.classList.toggle('active', ativo);
+        chip.setAttribute('aria-selected', ativo);
+    });
+    botao.scrollIntoView({ behavior: reduzMovimento ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+    aplicarFiltro();
 }
 
 function atualizarBotao(id) {
@@ -439,9 +487,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let buscaTimer;
     document.getElementById('gift-search').addEventListener('input', () => {
         clearTimeout(buscaTimer);
-        buscaTimer = setTimeout(aplicarFiltro, 150);
+        buscaTimer = setTimeout(() => aplicarFiltro(), 150);
     });
-    document.getElementById('gift-sort').addEventListener('change', aplicarFiltro);
+    document.getElementById('gift-sort').addEventListener('change', () => aplicarFiltro());
+    document.getElementById('gift-more').addEventListener('click', mostrarMais);
+    document.querySelectorAll('.gift-categories .chip').forEach(chip => {
+        chip.addEventListener('click', () => escolherCategoria(chip));
+    });
 
     document.getElementById('checkout-btn').addEventListener('click', finalizarCompra);
     document.getElementById('buyer-name').addEventListener('input', e => e.target.classList.remove('input-error'));
