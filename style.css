@@ -80,12 +80,18 @@ button { font-family: inherit; }
 .navbar.nav-hidden { transform: translateY(-100%); }
 
 .logo {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.2em;
-    color: var(--text-primary);
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    height: 100%;
     text-decoration: none;
 }
+.logo img {
+    display: block;
+    height: 46px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+.logo:active img { transform: scale(0.94); }
 .nav-links {
     list-style: none;
     display: flex;
@@ -658,6 +664,13 @@ select.form-input {
 .checkout-btn:active { transform: scale(0.97); }
 
 /* ---------- Rodapé ---------- */
+.footer-logo {
+    display: block;
+    height: 65px;
+    width: auto;
+    margin: 0 auto 8px;
+    opacity: 0.9;
+}
 .footer {
     text-align: center;
     padding: 30px 16px 40px;
@@ -845,7 +858,7 @@ select.form-input {
     :root { --nav-height: 60px; }
 
     .navbar { padding: 0 16px; }
-    .logo { font-size: 1.8em; }
+    .logo img { height: 40px; }
     .nav-links { gap: 2px; }
     .nav-links a { font-size: 0.95em; padding: 8px 10px; }
 
@@ -1075,7 +1088,7 @@ select.form-input {
 
 @media (max-width: 380px) {
     .nav-links a { font-size: 0.88em; padding: 6px 7px; }
-    .logo { font-size: 1.6em; }
+    .logo img { height: 36px; }
     .hero-date { letter-spacing: 2px; padding: 6px 16px; }
 }
 
