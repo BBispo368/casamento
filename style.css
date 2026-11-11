@@ -1100,4 +1100,10 @@ select.form-input {
         transition-duration: 0.01ms !important;
     }
     .reveal { opacity: 1; transform: none; }
+    /* O carrossel continua passando sozinho, só sem o zoom */
+    .carousel-slide,
+    .carousel-slide.active {
+        transform: none;
+        transition: opacity 1.2s ease-in-out !important;
+    }
 }

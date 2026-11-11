@@ -89,7 +89,7 @@ function mostrarAviso(texto) {
 
     function reiniciar() {
         clearInterval(timer);
-        if (!reduzMovimento) timer = setInterval(() => irPara(atual + 1), 5000);
+        timer = setInterval(() => irPara(atual + 1), 5000);
     }
 
     // Deslizar o dedo para trocar de foto no celular
