@@ -1,10 +1,10 @@
-// Configuração do Firebase (Console do Firebase → Configurações do projeto → Seus apps → App da Web).
+// Configuração do Firebase (projeto casamento-bl).
 // Estes valores são públicos por natureza: quem protege os dados são as regras em firestore.rules.
 window.FIREBASE_CONFIG = {
-    apiKey: "COLE_AQUI",
-    authDomain: "COLE_AQUI.firebaseapp.com",
-    projectId: "COLE_AQUI",
-    storageBucket: "COLE_AQUI.firebasestorage.app",
-    messagingSenderId: "COLE_AQUI",
-    appId: "COLE_AQUI"
+    apiKey: "AIzaSyAFPvquG3I8sFD-WXd_ZBEqZaKCN5DHq2Q",
+    authDomain: "casamento-bl.firebaseapp.com",
+    projectId: "casamento-bl",
+    storageBucket: "casamento-bl.firebasestorage.app",
+    messagingSenderId: "340738283517",
+    appId: "1:340738283517:web:d3047cfaa5e4073bfc6b94"
 };
