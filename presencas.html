@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Confirmações - Breno & Livia</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+    <header class="admin-header">
+        <a href="./" class="logo" aria-label="Voltar ao site"><img src="images/logo-bl.svg" alt="" width="40" height="46"></a>
+        <h1>Confirmações</h1>
+        <button type="button" id="sair" class="btn-link" hidden>Sair</button>
+    </header>
+
+    <main class="admin-main">
+        <section id="tela-login" class="admin-card admin-center" hidden>
+            <h2>Área dos noivos</h2>
+            <p>Entre com sua conta Google para ver quem confirmou presença.</p>
+            <button type="button" id="entrar" class="checkout-btn">Entrar com Google</button>
+        </section>
+
+        <section id="tela-sem-acesso" class="admin-card admin-center" hidden>
+            <h2>Acesso ainda não liberado</h2>
+            <p>Esta conta (<strong id="conta-email"></strong>) ainda não foi autorizada.</p>
+            <p>No Console do Firebase, em <em>Firestore → coleção <code>admins</code></em>, crie um documento com este código como ID:</p>
+            <div class="copy-container">
+                <input type="text" id="conta-uid" readonly aria-label="Código da conta">
+                <button type="button" id="copiar-uid" class="copy-btn">Copiar</button>
+            </div>
+        </section>
+
+        <section id="tela-config" class="admin-card admin-center" hidden>
+            <h2>Firebase ainda não configurado</h2>
+            <p>Preencha o arquivo <code>firebase-config.js</code> com os dados do seu projeto.</p>
+        </section>
+
+        <section id="painel" hidden>
+            <div class="admin-stats">
+                <div class="stat"><span id="st-pessoas">0</span><small>pessoas confirmadas</small></div>
+                <div class="stat"><span id="st-sim">0</span><small>respostas "vou"</small></div>
+                <div class="stat"><span id="st-nao">0</span><small>respostas "não vou"</small></div>
+            </div>
+
+            <div class="admin-toolbar">
+                <input type="search" id="busca" class="form-input" placeholder="🔎 Buscar por nome..." aria-label="Buscar por nome">
+                <div class="gift-categories" role="tablist" aria-label="Filtrar respostas">
+                    <button type="button" class="chip active" data-filtro="todos">Todos</button>
+                    <button type="button" class="chip" data-filtro="sim">🎉 Vão</button>
+                    <button type="button" class="chip" data-filtro="nao">😢 Não vão</button>
+                </div>
+                <button type="button" id="exportar" class="btn-more">⬇️ Baixar planilha (CSV)</button>
+            </div>
+
+            <div id="lista" class="admin-list"></div>
+            <p id="lista-vazia" class="gift-empty" hidden>Nenhuma confirmação por aqui ainda.</p>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="firebase-config.js"></script>
+    <script type="module" src="presencas.js"></script>
+</body>
+</html>

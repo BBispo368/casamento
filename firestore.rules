@@ -1,0 +1,45 @@
+rules_version = '2';
+
+// Regras de segurança do banco de confirmações.
+// - Qualquer convidado pode CRIAR uma confirmação (com dados validados).
+// - Ninguém de fora consegue LER, ALTERAR ou APAGAR confirmações.
+// - Só quem estiver na coleção "admins" (os noivos) lê e apaga.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function textoOpcional(d, campo, max) {
+      return !(campo in d) || (d[campo] is string && d[campo].size() <= max);
+    }
+
+    function confirmacaoValida(d) {
+      return d.keys().hasAll(['nome', 'vai', 'pessoas', 'acompanhantes', 'criadoEm'])
+        && d.keys().hasOnly(['nome', 'vai', 'pessoas', 'acompanhantes', 'telefone', 'mensagem', 'criadoEm'])
+        && d.nome is string && d.nome.size() >= 2 && d.nome.size() <= 80
+        && d.vai is bool
+        && d.pessoas is int
+        && ((d.vai == true && d.pessoas >= 1 && d.pessoas <= 10)
+            || (d.vai == false && d.pessoas == 0))
+        && d.acompanhantes is list && d.acompanhantes.size() <= 9
+        && textoOpcional(d, 'telefone', 20)
+        && textoOpcional(d, 'mensagem', 500)
+        && d.criadoEm == request.time;
+    }
+
+    match /confirmacoes/{id} {
+      allow create: if confirmacaoValida(request.resource.data);
+      allow read, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    // Cada noivo só consegue ver se ele mesmo é admin; ninguém altera pelo site.
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+  }
+}

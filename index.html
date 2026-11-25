@@ -39,6 +39,7 @@
         <ul class="nav-links">
             <li><a href="#home">Início</a></li>
             <li><a href="#local">Local</a></li>
+            <li><a href="#rsvp">Presença</a></li>
             <li><a href="#presentes">Presentes</a></li>
         </ul>
     </nav>
@@ -117,6 +118,62 @@
             </div>
             <div class="local-map">
                 <iframe title="Mapa da Fazenda Aristides" src="https://maps.google.com/maps?q=CM9V%2BGX%20Bom%20Despacho,%20Minas%20Gerais&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmação de presença -->
+    <section id="rsvp" class="content-section">
+        <div class="section-header reveal">
+            <svg class="ornament" viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><path d="M6 12h48M106 12h48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="62" cy="12" r="2" fill="currentColor"/><circle cx="98" cy="12" r="2" fill="currentColor"/><path d="M80 21V7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M80 16c-6 0-10-4-11-9 6 0 10 4 11 9zM80 12c6 0 10-4 11-9-6 0-10 4-11 9z" fill="currentColor"/></svg>
+            <h2>Confirme sua Presença</h2>
+            <p>Sua resposta nos ajuda a preparar tudo com carinho!</p>
+        </div>
+
+        <div class="rsvp-card reveal">
+            <form id="rsvp-form" class="rsvp-form" novalidate>
+                <fieldset class="rsvp-choice">
+                    <legend>Você vai ao casamento?</legend>
+                    <label class="choice-card">
+                        <input type="radio" name="vai" value="sim" required>
+                        <span class="choice-emoji" aria-hidden="true">🎉</span>
+                        <span>Sim, estarei lá!</span>
+                    </label>
+                    <label class="choice-card">
+                        <input type="radio" name="vai" value="nao">
+                        <span class="choice-emoji" aria-hidden="true">😢</span>
+                        <span>Não poderei ir</span>
+                    </label>
+                </fieldset>
+
+                <label class="field-label" for="rsvp-nome">Seu nome completo</label>
+                <input type="text" id="rsvp-nome" class="form-input" maxlength="80" autocomplete="name" required>
+
+                <div id="rsvp-detalhes" class="rsvp-detalhes" hidden>
+                    <span class="field-label" id="rsvp-pessoas-label">Quantas pessoas, contando com você?</span>
+                    <div class="stepper" role="group" aria-labelledby="rsvp-pessoas-label">
+                        <button type="button" class="stepper-btn" data-delta="-1" aria-label="Diminuir">−</button>
+                        <output id="rsvp-pessoas" aria-live="polite">1</output>
+                        <button type="button" class="stepper-btn" data-delta="1" aria-label="Aumentar">+</button>
+                    </div>
+                    <div id="rsvp-acompanhantes"></div>
+                </div>
+
+                <label class="field-label" for="rsvp-telefone">WhatsApp <small>(opcional)</small></label>
+                <input type="tel" id="rsvp-telefone" class="form-input" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="(37) 9 9999-9999">
+
+                <label class="field-label" for="rsvp-msg">Recado para os noivos <small>(opcional)</small></label>
+                <textarea id="rsvp-msg" class="form-input" rows="3" maxlength="500"></textarea>
+
+                <p id="rsvp-erro" class="rsvp-erro" role="alert" hidden></p>
+                <button type="submit" id="rsvp-enviar" class="checkout-btn">Enviar confirmação</button>
+            </form>
+
+            <div id="rsvp-sucesso" class="rsvp-sucesso" hidden>
+                <div class="rsvp-sucesso-emoji" aria-hidden="true"></div>
+                <h3 id="rsvp-sucesso-titulo"></h3>
+                <p id="rsvp-sucesso-texto"></p>
+                <button type="button" id="rsvp-nova" class="btn-more">Enviar outra confirmação</button>
             </div>
         </div>
     </section>
@@ -212,5 +269,7 @@
 
     <script src="presentes.js"></script>
     <script src="script.js"></script>
+    <script src="firebase-config.js"></script>
+    <script type="module" src="rsvp.js"></script>
 </body>
 </html>

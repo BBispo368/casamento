@@ -1107,3 +1107,237 @@ select.form-input {
         transition: opacity 1.2s ease-in-out !important;
     }
 }
+
+/* =========================================================
+   Confirmação de presença
+   ========================================================= */
+.rsvp-card {
+    max-width: 620px;
+    margin: 0 auto;
+    background: white;
+    padding: 36px;
+    border-radius: 20px;
+    border: 2px solid white;
+    box-shadow: 0 10px 30px rgba(146, 180, 242, 0.2);
+}
+.rsvp-choice {
+    border: none;
+    margin: 0 0 22px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.rsvp-choice legend {
+    font-weight: 700;
+    font-size: 1.15em;
+    margin-bottom: 12px;
+    padding: 0;
+}
+.choice-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 18px 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 16px;
+    background: #F9FCFF;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+}
+.choice-card input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+}
+.choice-emoji { font-size: 1.8em; line-height: 1; }
+.choice-card:has(input:checked) {
+    border-color: var(--ink);
+    background: #EEF4FB;
+    box-shadow: 0 0 0 2px var(--ink) inset;
+}
+.choice-card:has(input:focus-visible) { outline: 3px solid var(--ink); outline-offset: 2px; }
+.choice-card:active { transform: scale(0.98); }
+
+.field-label {
+    display: block;
+    margin: 0 0 6px 4px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.field-label small { color: var(--text-secondary); font-weight: 600; }
+
+.rsvp-detalhes {
+    margin-bottom: 15px;
+    animation: fadeIn 0.35s ease both;
+}
+.stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 15px;
+    padding: 4px;
+    border: 2px solid var(--primary-color);
+    border-radius: 40px;
+    background: #F9FCFF;
+}
+.stepper output {
+    min-width: 48px;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+.stepper-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    font-size: 1.5em;
+    line-height: 1;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.15s ease;
+}
+.stepper-btn:active { transform: scale(0.92); }
+.stepper-btn:disabled { opacity: 0.3; cursor: default; }
+.guest-name-input {
+    margin-bottom: 10px;
+    animation: fadeIn 0.3s ease both;
+}
+
+.rsvp-erro {
+    margin: 0 0 12px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    background: #FDECEA;
+    color: #A93226;
+    font-weight: 700;
+}
+.rsvp-sucesso {
+    text-align: center;
+    padding: 10px 0;
+    animation: fadeIn 0.4s ease both;
+}
+.rsvp-sucesso-emoji { font-size: 3.5em; line-height: 1.2; }
+.rsvp-sucesso h3 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.3em;
+    color: var(--gold);
+    margin: 10px 0;
+}
+.rsvp-sucesso p { font-size: 1.1em; color: var(--text-secondary); font-weight: 600; }
+
+@media (max-width: 768px) {
+    .rsvp-card { padding: 24px 16px; }
+    .choice-card { padding: 14px 8px; font-size: 0.95em; }
+}
+
+/* =========================================================
+   Painel dos noivos (presencas.html)
+   ========================================================= */
+.admin-page { min-height: 100vh; }
+.admin-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 64px;
+    padding: 0 16px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(146, 180, 242, 0.15);
+}
+.admin-header h1 {
+    flex: 1;
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.9em;
+    color: var(--ink);
+}
+.admin-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+}
+.admin-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 22px;
+    box-shadow: 0 8px 30px rgba(146, 180, 242, 0.2);
+}
+.admin-center { text-align: center; max-width: 480px; margin: 40px auto; }
+.admin-center h2 { font-family: 'Dancing Script', cursive; color: var(--gold); font-size: 2.3em; margin: 0 0 10px; }
+.admin-center code { background: var(--border-color); padding: 2px 6px; border-radius: 6px; }
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.stat {
+    background: white;
+    border-radius: 16px;
+    padding: 16px 10px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(146, 180, 242, 0.15);
+}
+.stat span { display: block; font-size: 2.2em; font-weight: 700; color: var(--ink); line-height: 1.1; }
+.stat small { color: var(--text-secondary); font-weight: 700; }
+.stat:first-child span { color: var(--success-color); }
+
+.admin-toolbar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+.admin-toolbar .form-input { margin: 0; }
+.admin-toolbar .gift-categories { margin: 0; }
+.admin-toolbar .btn-more { margin: 0; align-self: flex-start; }
+
+.admin-list { display: grid; gap: 12px; }
+.admin-item {
+    background: white;
+    border-radius: 16px;
+    padding: 16px 18px;
+    border-left: 5px solid var(--success-color);
+    box-shadow: 0 6px 20px rgba(146, 180, 242, 0.12);
+}
+.admin-item.nao-vai { border-left-color: #C0C9D4; }
+.admin-item-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.admin-item h3 { margin: 0 0 4px; font-size: 1.15em; overflow-wrap: anywhere; }
+.admin-item time { color: var(--text-secondary); font-size: 0.85em; font-weight: 600; white-space: nowrap; }
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: #E7F3EA;
+    color: var(--success-color);
+    font-weight: 700;
+    font-size: 0.85em;
+}
+.nao-vai .badge { background: #EEF1F5; color: var(--text-secondary); }
+.admin-acomp { margin: 10px 0 0; padding-left: 20px; color: var(--text-primary); }
+.admin-msg { margin: 10px 0 0; font-style: italic; color: var(--text-secondary); }
+.admin-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.btn-link {
+    min-height: 40px;
+    padding: 8px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: 20px;
+    background: white;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 0.95em;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn-danger { color: #A93226; }
+
+@media (max-width: 480px) {
+    .stat span { font-size: 1.8em; }
+    .stat small { font-size: 0.75em; }
+}
